@@ -160,5 +160,5 @@ cython_debug/
 #.idea/
 /myenv
 .env
-data_path.csv
-features.csv
+/data_path.csv
+/features.csv
