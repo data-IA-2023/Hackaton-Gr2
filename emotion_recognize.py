@@ -160,7 +160,7 @@ plt.xlabel('Emotions', size=12)
 sns.despine(top=True, right=True, left=False, bottom=False)
 plt.show()
 
-def create_waveplot(data, sr, e):
+"""def create_waveplot(data, sr, e):
     plt.figure(figsize=(10, 3))
     plt.title('Waveplot for audio with {} emotion'.format(e), size=15)
     librosa.display.waveshow(data, sr=sr)
@@ -174,7 +174,7 @@ def create_spectrogram(data, sr, e):
     plt.title('Spectrogram for audio with {} emotion'.format(e), size=15)
     librosa.display.specshow(Xdb, sr=sr, x_axis='time', y_axis='hz')   
     #librosa.display.specshow(Xdb, sr=sr, x_axis='time', y_axis='log')
-    plt.colorbar()
+    plt.colorbar()"""
 """
 emotion='fear'
 path = np.array(data_path.Path[data_path.Emotions==emotion])[1]
@@ -189,18 +189,19 @@ def noise(data):
     return data
 
 def stretch(data, rate=0.8):
-    return librosa.effects.time_stretch(data, rate)
+    return librosa.effects.time_stretch(data, rate=rate)
 
 def shift(data):
     shift_range = int(np.random.uniform(low=-5, high = 5)*1000)
     return np.roll(data, shift_range)
 
 def pitch(data, sampling_rate, pitch_factor=0.7):
-    return librosa.effects.pitch_shift(data, sampling_rate, pitch_factor)
+    return librosa.effects.pitch_shift(data, sr=sampling_rate, n_steps=pitch_factor)
 
+print('beggggggggggggggggggggggggggggggggggggggggg')
 # taking any example and checking for techniques.
-"""path = np.array(data_path.Path)[1]
-data, sample_rate = librosa.load(path)"""
+path = np.array(data_path.Path)[1]
+data, sample_rate = librosa.load(path)
 
 def extract_features(data):
     # ZCR
@@ -247,17 +248,17 @@ def get_features(path):
     result = np.vstack((result, res3)) # stacking vertically
     
     return result
-
 X, Y = [], []
-for path, emotion in zip(data_path.Path, data_path.Emotions):
+for path, emotion in zip(data_path.Path, data_path.Emotions):  
     feature = get_features(path)
-    for ele in feature:
+    for i,ele in enumerate(feature):
         X.append(ele)
         # appending emotion 3 times as we have made 3 augmentation techniques on each audio file.
         Y.append(emotion)
+    if count%50==0:
+        print(count)
 
 len(X), len(Y), data_path.Path.shape
-print('noooooooooooooooooooooooooooooooooooooooooooon')
 Features = pd.DataFrame(X)
 Features['labels'] = Y
 Features.to_csv('features.csv', index=False)
@@ -265,7 +266,6 @@ Features.head()
 
 X = Features.iloc[: ,:-1].values
 Y = Features['labels'].values
-print('ouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuui')
 encoder = OneHotEncoder()
 Y = encoder.fit_transform(np.array(Y).reshape(-1,1)).toarray()
 
@@ -280,7 +280,6 @@ x_train.shape, y_train.shape, x_test.shape, y_test.shape
 x_train = np.expand_dims(x_train, axis=2)
 x_test = np.expand_dims(x_test, axis=2)
 x_train.shape, y_train.shape, x_test.shape, y_test.shape
-print('okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
 model=Sequential()
 model.add(Conv1D(256, kernel_size=5, strides=1, padding='same', activation='relu', input_shape=(x_train.shape[1], 1)))
 model.add(MaxPooling1D(pool_size=5, strides = 2, padding = 'same'))
@@ -303,7 +302,7 @@ model.add(Dense(units=8, activation='softmax'))
 model.compile(optimizer = 'adam' , loss = 'categorical_crossentropy' , metrics = ['accuracy'])
 
 model.summary()
-
+model.save("model_audio.h5")
 rlrp = ReduceLROnPlateau(monitor='loss', factor=0.4, verbose=0, patience=2, min_lr=0.0000001)
 history=model.fit(x_train, y_train, batch_size=64, epochs=50, validation_data=(x_test, y_test), callbacks=[rlrp])
 
