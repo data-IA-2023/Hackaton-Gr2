@@ -175,13 +175,13 @@ def create_spectrogram(data, sr, e):
     librosa.display.specshow(Xdb, sr=sr, x_axis='time', y_axis='hz')   
     #librosa.display.specshow(Xdb, sr=sr, x_axis='time', y_axis='log')
     plt.colorbar()
-
+"""
 emotion='fear'
 path = np.array(data_path.Path[data_path.Emotions==emotion])[1]
 data, sampling_rate = librosa.load(path)
 create_waveplot(data, sampling_rate, emotion)
 create_spectrogram(data, sampling_rate, emotion)
-Audio(path)
+Audio(path)"""
 
 def noise(data):
     noise_amp = 0.035*np.random.uniform()*np.amax(data)
@@ -199,8 +199,8 @@ def pitch(data, sampling_rate, pitch_factor=0.7):
     return librosa.effects.pitch_shift(data, sampling_rate, pitch_factor)
 
 # taking any example and checking for techniques.
-path = np.array(data_path.Path)[1]
-data, sample_rate = librosa.load(path)
+"""path = np.array(data_path.Path)[1]
+data, sample_rate = librosa.load(path)"""
 
 def extract_features(data):
     # ZCR
@@ -257,7 +257,7 @@ for path, emotion in zip(data_path.Path, data_path.Emotions):
         Y.append(emotion)
 
 len(X), len(Y), data_path.Path.shape
-
+print('noooooooooooooooooooooooooooooooooooooooooooon')
 Features = pd.DataFrame(X)
 Features['labels'] = Y
 Features.to_csv('features.csv', index=False)
@@ -265,7 +265,7 @@ Features.head()
 
 X = Features.iloc[: ,:-1].values
 Y = Features['labels'].values
-
+print('ouuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuui')
 encoder = OneHotEncoder()
 Y = encoder.fit_transform(np.array(Y).reshape(-1,1)).toarray()
 
@@ -280,7 +280,7 @@ x_train.shape, y_train.shape, x_test.shape, y_test.shape
 x_train = np.expand_dims(x_train, axis=2)
 x_test = np.expand_dims(x_test, axis=2)
 x_train.shape, y_train.shape, x_test.shape, y_test.shape
-
+print('okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
 model=Sequential()
 model.add(Conv1D(256, kernel_size=5, strides=1, padding='same', activation='relu', input_shape=(x_train.shape[1], 1)))
 model.add(MaxPooling1D(pool_size=5, strides = 2, padding = 'same'))
