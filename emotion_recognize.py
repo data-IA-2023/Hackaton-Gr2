@@ -19,10 +19,10 @@ from IPython.display import Audio
 
 import keras
 from keras.callbacks import ReduceLROnPlateau
-from keras.models import Sequentia
+from keras.models import Sequential
 
 from keras.layers import Dense, Conv1D, MaxPooling1D, Flatten, Dropout, BatchNormalization
-from keras.utils import np_utils, to_categorical
+from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint
 
 import warnings
@@ -30,10 +30,10 @@ if not sys.warnoptions:
     warnings.simplefilter("ignore")
 warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
-Ravdess = "/kaggle/input/ravdess-emotional-speech-audio/audio_speech_actors_01-24/"
-Crema = "/kaggle/input/cremad/AudioWAV/"
-Tess = "/kaggle/input/toronto-emotional-speech-set-tess/tess toronto emotional speech set data/TESS Toronto emotional speech set data/"
-Savee = "/kaggle/input/surrey-audiovisual-expressed-emotion-savee/ALL/"
+Ravdess = "C:/Users/kaeli/OneDrive/Documents/Ravdes/audio_speech_actors_01-24/"
+Crema = "C:/Users/kaeli/OneDrive/Documents/CREMA/AudioWAV/"
+Tess = "C:/Users/kaeli/OneDrive/Documents/TESS/tess toronto emotional speech set data/TESS Toronto emotional speech set data/"
+Savee = "C:/Users/kaeli/OneDrive/Documents/SAVEE/ALL/"
 
 ravdess_directory_list = os.listdir(Ravdess)
 
