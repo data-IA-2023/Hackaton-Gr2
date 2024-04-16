@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 import sys
+import time
 import librosa
 import librosa.display
 import seaborn as sns
@@ -20,6 +21,9 @@ import warnings
 if not sys.warnoptions:
     warnings.simplefilter("ignore")
 warnings.filterwarnings("ignore", category=DeprecationWarning)
+
+start_time = time.time()
+
 
 # Paths for data.
 Ravdess = "ressource_audio/audio_speech_actors_01-24/"
@@ -44,7 +48,9 @@ emotion_df = pd.DataFrame(file_emotion, columns=['Emotions'])
 path_df = pd.DataFrame(file_path, columns=['Path'])
 Ravdess_df = pd.concat([emotion_df, path_df], axis=1)
 
-Ravdess_df.Emotions.replace({1:'Neutre', 2:'Calme', 3:'Heureux', 4:'Triste', 5:'Agacé', 6:'Appeuré', 7:'Dégout', 8:'Surpis'}, inplace=True)
+Ravdess_df.Emotions.replace({1:'neutral', 2:'calm', 3:'happy', 4:'sad', 5:'angry', 6:'fear', 7:'disgust', 8:'surprise'}, inplace=True)
+
+print(f"Ravdess : OK {start_time - time.time()}")
 
 ''' ============================ DataFrame avec Crema ============================'''
 
@@ -76,6 +82,8 @@ emotion_df = pd.DataFrame(file_emotion, columns=['Emotions'])
 path_df = pd.DataFrame(file_path, columns=['Path'])
 Crema_df = pd.concat([emotion_df, path_df], axis=1)
 
+print(f"Crema : OK {start_time - time.time()}")
+
 ''' ============================ DataFrame avec Tess ============================'''
 
 tess_directory_list = os.listdir(Tess)
@@ -98,6 +106,8 @@ for dir in tess_directory_list:
 emotion_df = pd.DataFrame(file_emotion, columns=['Emotions'])
 path_df = pd.DataFrame(file_path, columns=['Path'])
 Tess_df = pd.concat([emotion_df, path_df], axis=1)
+
+print(f"Tess : OK {start_time - time.time()}")
 
 ''' ============================ DataFrame avec Savee ============================'''
 
@@ -129,9 +139,12 @@ emotion_df = pd.DataFrame(file_emotion, columns=['Emotions'])
 path_df = pd.DataFrame(file_path, columns=['Path'])
 Savee_df = pd.concat([emotion_df, path_df], axis=1)
 
+print(f"Savee : OK {start_time - time.time()}")
+
 ''' ============================ Concat ============================'''
 
 data_path = pd.concat([Ravdess_df, Crema_df, Tess_df, Savee_df], axis = 0)
+print(f"Concat : OK {start_time - time.time()}")
 
 ''' ============================ Data Augmentation ============================'''
 
@@ -153,6 +166,8 @@ def pitch(data, sampling_rate, pitch_factor=0.7):
 # taking any example and checking for techniques.
 path = np.array(data_path.Path)[1]
 data, sample_rate = librosa.load(path)
+
+print(f"Augment : OK {start_time - time.time()}")
 
 ''' ============================ Data Extraction ============================'''
 
@@ -215,6 +230,8 @@ len(X), len(Y), data_path.Path.shape
 Features = pd.DataFrame(X)
 Features['labels'] = Y
 
+print(f"Extract : OK {start_time - time.time()}")
+
 ''' ============================ Data Preparation ============================'''
 
 X = Features.iloc[: ,:-1].values
@@ -234,6 +251,8 @@ x_train.shape, y_train.shape, x_test.shape, y_test.shape
 x_train = np.expand_dims(x_train, axis=2)
 x_test = np.expand_dims(x_test, axis=2)
 x_train.shape, y_train.shape, x_test.shape, y_test.shape
+
+print(f"Preparation : OK {start_time - time.time()}")
 
 ''' ============================ Modeling ============================'''
 
@@ -307,3 +326,31 @@ plt.ylabel('Actual Labels', size=14)
 plt.show()
 
 print(classification_report(y_test, y_pred))
+
+print(f"Modeling : OK {start_time - time.time()}")
+
+''' ============================ test ============================'''
+
+""" def predict_emotion(audio_file):
+    # Chargez le fichier audio
+    data, sample_rate = librosa.load(audio_file, duration=2.5, offset=0.6)
+    
+    # Extrayez les caractéristiques audio
+    features = extract_features(data)
+    
+    # Transformez les caractéristiques pour les rendre compatibles avec le modèle
+    features = scaler.transform(features.reshape(1, -1))
+    features = np.expand_dims(features, axis=2)
+    
+    # Faites une prédiction avec le modèle
+    prediction = model.predict(features)
+    
+    # Convertissez la prédiction en émotion
+    predicted_emotion = encoder.inverse_transform(prediction)
+    
+    return predicted_emotion[0][0]
+
+# Utilisez cette fonction avec votre propre fichier audio
+audio_file_path = "chemin/vers/votre/fichier/audio.wav"
+predicted_emotion = predict_emotion(audio_file_path)
+print("Predicted emotion:", predicted_emotion) """
