@@ -9,6 +9,21 @@ encoder = OneHotEncoder()
 model = keras.models.load_model("/Users/home/Documents/Python/Hackaton-Gr2/Emotion_Voice_Detection_Model.h5")
 model.summary() 
 
+def noise(data):
+    noise_amp = 0.035*np.random.uniform()*np.amax(data)
+    data = data + noise_amp*np.random.normal(size=data.shape[0])
+    return data
+
+def stretch(data, rate=0.8):
+    return librosa.effects.time_stretch(data, rate=rate)
+
+def shift(data):
+    shift_range = int(np.random.uniform(low=-5, high = 5)*1000)
+    return np.roll(data, shift_range)
+
+def pitch(data, sampling_rate, pitch_factor=0.7):
+    return librosa.effects.pitch_shift(data, sr=sampling_rate, n_steps=pitch_factor)
+
 def extract_features(datatuple):
     # ZCR
     data = datatuple[0]
@@ -44,16 +59,37 @@ def predict_emotion(audio_file):
     features = extract_features(data)
     
     # Transformez les caractéristiques pour les rendre compatibles avec le modèle
-    features = scaler.transform(features.reshape(1, -1))
+    features = scaler.fit_transform(features.reshape(1, -1))
     features = np.expand_dims(features, axis=2)
     
     # Faites une prédiction avec le modèle
     prediction = model.predict(features)
     
     # Convertissez la prédiction en émotion
-    predicted_emotion = encoder.inverse_transform(prediction)
+    #predicted_emotion = encoder.inverse_transform(prediction)
     
-    return predicted_emotion[0][0]
+    return prediction
+
+def get_features(path):
+    # duration and offset are used to take care of the no audio in start and the ending of each audio files as seen above.
+    data, sample_rate = librosa.load(path, duration=2.5, offset=0.6)
+    
+    # without augmentation
+    res1 = extract_features(data)
+    result = np.array(res1)
+    
+    # data with noise
+    noise_data = noise(data)
+    res2 = extract_features(noise_data)
+    result = np.vstack((result, res2)) # stacking vertically
+    
+    # data with stretching and pitching
+    new_data = stretch(data)
+    data_stretch_pitch = pitch(new_data, sample_rate)
+    res3 = extract_features(data_stretch_pitch)
+    result = np.vstack((result, res3)) # stacking vertically
+    
+    return result
 
 
 
