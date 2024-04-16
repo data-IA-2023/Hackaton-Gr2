@@ -162,3 +162,5 @@ cython_debug/
 .env
 /data_path.csv
 /features.csv
+/model
+/cookies
