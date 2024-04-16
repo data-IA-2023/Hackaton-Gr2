@@ -166,6 +166,7 @@ def pitch(data, sampling_rate, pitch_factor=0.7):
 # taking any example and checking for techniques.
 path = np.array(data_path.Path)[1]
 data, sample_rate = librosa.load(path)
+print(path)
 
 print(f"Augment : OK {start_time - time.time()}")
 
@@ -280,7 +281,7 @@ model.compile(optimizer = 'adam' , loss = 'categorical_crossentropy' , metrics =
 model.summary()
 
 rlrp = ReduceLROnPlateau(monitor='loss', factor=0.4, verbose=0, patience=2, min_lr=0.0000001)
-history=model.fit(x_train, y_train, batch_size=64, epochs=50, validation_data=(x_test, y_test), callbacks=[rlrp])
+history=model.fit(x_train, y_train, batch_size=64, epochs=100, validation_data=(x_test, y_test), callbacks=[rlrp])
 
 print("Accuracy of our model on test data : " , model.evaluate(x_test,y_test)[1]*100 , "%")
 
@@ -329,28 +330,15 @@ print(classification_report(y_test, y_pred))
 
 print(f"Modeling : OK {start_time - time.time()}")
 
-''' ============================ test ============================'''
+''' ============================ Saving Model ============================'''
 
-""" def predict_emotion(audio_file):
-    # Chargez le fichier audio
-    data, sample_rate = librosa.load(audio_file, duration=2.5, offset=0.6)
-    
-    # Extrayez les caractéristiques audio
-    features = extract_features(data)
-    
-    # Transformez les caractéristiques pour les rendre compatibles avec le modèle
-    features = scaler.transform(features.reshape(1, -1))
-    features = np.expand_dims(features, axis=2)
-    
-    # Faites une prédiction avec le modèle
-    prediction = model.predict(features)
-    
-    # Convertissez la prédiction en émotion
-    predicted_emotion = encoder.inverse_transform(prediction)
-    
-    return predicted_emotion[0][0]
+model_name = 'model_final.h5'
+save_dir = "/model_save"
 
-# Utilisez cette fonction avec votre propre fichier audio
-audio_file_path = "chemin/vers/votre/fichier/audio.wav"
-predicted_emotion = predict_emotion(audio_file_path)
-print("Predicted emotion:", predicted_emotion) """
+if not os.path.isdir(save_dir):
+    os.makedirs(save_dir)
+model_path = os.path.join(save_dir, model_name)
+model.save(model_path)
+print('Saved trained model at %s ' % model_path)
+
+print(f"Save : OK {start_time - time.time()}")
