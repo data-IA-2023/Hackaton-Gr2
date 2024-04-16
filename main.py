@@ -2,9 +2,14 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import numpy as np
 import librosa
 import keras
+import pyaudio
+import wave
+import os
+import pickle
+import pandas as pd
 
 scaler = StandardScaler()
-encoder = OneHotEncoder()
+
 
 model = keras.models.load_model("/Users/home/Documents/Python/Hackaton-Gr2/Emotion_Voice_Detection_Model.h5")
 model.summary() 
@@ -51,51 +56,102 @@ def extract_features(datatuple):
     
     return result
 
+
+
+def get_features(datatuple):
+    # duration and offset are used to take care of the no audio in start and the ending of each audio files as seen above.
+    data = datatuple[0]
+    sample_rate = datatuple[1]
+    print("without augmentation")
+    res1 = extract_features(datatuple)
+    result = np.array(res1)
+    print("data with noise")
+    noise_data = noise(data)
+    res2 = extract_features((noise_data, sample_rate))
+    result = np.vstack((result, res2)) # stacking vertically
+    
+    print("data with stretching and pitching")
+    new_data = stretch(data)
+    data_stretch_pitch = pitch(new_data, sample_rate)
+    res3 = extract_features((data_stretch_pitch, sample_rate))
+    result = np.vstack((result, res3)) # stacking vertically
+    
+    return result
+
 def predict_emotion(audio_file):
     # Chargez le fichier audio
     data = librosa.load(audio_file, duration=2.5, offset=0.6)
 
     # Extrayez les caractéristiques audio
-    features = extract_features(data)
+    X = []
+    feature = get_features(data)
+    for ele in feature:
+        X.append(ele)
+    features = X
     
     # Transformez les caractéristiques pour les rendre compatibles avec le modèle
-    features = scaler.fit_transform(features.reshape(1, -1))
+    features = scaler.fit_transform(features)
     features = np.expand_dims(features, axis=2)
     
     # Faites une prédiction avec le modèle
     prediction = model.predict(features)
     
     # Convertissez la prédiction en émotion
-    #predicted_emotion = encoder.inverse_transform(prediction)
-    
-    return prediction
+    pkl_file = open('Departure_encoder.pkl', 'rb')
+    encoder = pickle.load(pkl_file) 
+    pkl_file.close()
 
-def get_features(path):
-    # duration and offset are used to take care of the no audio in start and the ending of each audio files as seen above.
-    data, sample_rate = librosa.load(path, duration=2.5, offset=0.6)
-    
-    # without augmentation
-    res1 = extract_features(data)
-    result = np.array(res1)
-    
-    # data with noise
-    noise_data = noise(data)
-    res2 = extract_features(noise_data)
-    result = np.vstack((result, res2)) # stacking vertically
-    
-    # data with stretching and pitching
-    new_data = stretch(data)
-    data_stretch_pitch = pitch(new_data, sample_rate)
-    res3 = extract_features(data_stretch_pitch)
-    result = np.vstack((result, res3)) # stacking vertically
-    
-    return result
+    predicted_emotion = encoder.inverse_transform(prediction)
 
+    
+    return predicted_emotion[0][0]
 
+def audio():
+
+    CHUNK = 1024
+    FORMAT = pyaudio.paInt16
+    CHANNELS = 2
+    RATE = 48000
+    RECORD_SECONDS = 5
+    OUTPUT_DIR = "/static"
+    WAVE_OUTPUT_FILENAME = os.path.join(OUTPUT_DIR, "output.wav")
+
+    p = pyaudio.PyAudio()
+
+    stream = p.open(format=FORMAT,
+                    channels=CHANNELS,
+                    rate=RATE,
+                    input=True,
+                    output=True,
+                    input_device_index=3,
+                    output_device_index=2,
+                    frames_per_buffer=CHUNK)
+
+    print("Enregistrement en cours...")
+
+    frames = []
+
+    for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+        data = stream.read(CHUNK)
+        frames.append(data)
+
+    print("Enregistrement terminé.")
+
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(p.get_sample_size(FORMAT))  # Correction ici
+    wf.setframerate(RATE)
+    wf.writeframes(b''.join(frames))
+    wf.close()
+    return 
 
 
 # Utilisez cette fonction avec votre propre fichier audio
-audio_file_path = "/Users/home/Documents/Python/Hackaton-Gr2/test.wav"
+audio_file_path = "/Users/home/Documents/Python/Hackaton-Gr2/static/test.wav"
 predicted_emotion = predict_emotion(audio_file_path)
 print("Predicted emotion:", predicted_emotion)
 
