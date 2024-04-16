@@ -5,7 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
-
+output.wav
+data_path.csv
+features.csv
 # Distribution / packaging
 .Python
 build/
