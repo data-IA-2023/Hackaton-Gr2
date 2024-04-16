@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
+static
+Emotion_Voice_Detection_Model.h5
+test.wav
 
 # C extensions
 *.so
