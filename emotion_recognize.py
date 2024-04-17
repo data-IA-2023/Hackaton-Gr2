@@ -201,7 +201,7 @@ def pitch(data, sampling_rate, pitch_factor=0.7):
 print('beggggggggggggggggggggggggggggggggggggggggg')
 # taking any example and checking for techniques.
 path = np.array(data_path.Path)[1]
-data, sample_rate = librosa.load(path)
+data, sample_rate = librosa.load(path,sr=41100)
 
 def extract_features(data):
     # ZCR
