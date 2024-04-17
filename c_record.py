@@ -51,5 +51,3 @@ def audio():
     except Exception as e:
         print("Échec de l'enregistrement:", e)
         return False
-    
-audio()
