@@ -5,7 +5,7 @@
 ## Table des matières
 
 - [Aperçu](#aperçu)
-- [Installation et conditions requises](#installation)
+- [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Contribuer](#contribuer)
 - [Licence](#licence)
@@ -27,41 +27,54 @@ L'application est réalisée sur Streamlit, elle embarque 5 points importants :
 
 ---
 
-## Installation et conditions requises
+## Installation
 
 L'application fonctionne sous :
   - Windows 10/11
   - Linux debian based (Ubuntu, Kubutu, PopOs!....)
   - Mac OS Ventura/Sonoma
 
+Conditions requises :
+  - Python 3.12
+  - Application web nécéssitant un navigateur
+
 ---
 
 ## Utilisation
 
-[Insérer ici des instructions sur la manière d'utiliser ton projet, des exemples de commandes, etc.]
+__Windows :__
+
+1. Téléchargez l'archive en .zip
+2. Dézippez l'archive dans un dossier
+3. Pour faire fonctionner le chatbot vous devez posseder un compte huggingface : https://huggingface.co/join, il vous faudra ensuite créer un fichier ``"credentials.env"`` dans le répértoire "credentials" (lire le fichier ``"place_keys_here"``) pour plus d'informations.
+4. Lancez en tant qu'administrateur le fichier ``run.bat``
+
+__Linux / MacOS :__
+
+1. Téléchargez l'archive en .zip
+2. Dézippez l'archive dans un dossier
+3. Pour faire fonctionner le chatbot vous devez posseder un compte huggingface : https://huggingface.co/join, il vous faudra ensuite créer un fichier ``"credentials.env"`` dans le répértoire "credentials" (lire le fichier ``"place_keys_here"``) pour plus d'informations.
+4. Lancez en tant qu'administrateur le fichier ``run.sh``
 
 ---
 
 ## Contribuer
 
-Les contributions sont ce qui rend la communauté open source un endroit incroyable pour apprendre, inspirer et créer. Toute contribution que tu fais est **grandement appréciée**.
-
-1. Forke le projet
-2. Crée une branche pour ta fonctionnalité (`git checkout -b feature/AmazingFeature`)
-3. Commit tes changements (`git commit -m 'Ajoute une fonctionnalité incroyable'`)
-4. Push ta branche (`git push origin feature/AmazingFeature`)
-5. Ouvre une pull request
+Les contributions sont ce qui rend la communauté open source un endroit incroyable pour apprendre, inspirer et créer.
+Cependant il s'agit d'un projet étudiant, je suis ouvert aux critiques et aux conseils sur mon travail cependant je n'apporterai aucun support utilisateur et probablement aucune mise à jour, merci de votre compréhension.
 
 ---
 
 ## Licence
 
-[Insérer ici le type de licence que tu as choisi pour ton projet, par exemple MIT, GNU, etc.]
+Libre de droit I guess
 
 ---
 
 ## Contact
 
-[Insérer ici tes coordonnées de contact si tu souhaites que d'autres développeurs puissent te contacter pour des questions, des suggestions, ou des collaborations.]
+Discord : laamh
 
 ---
+
+Projet Réalisé par : Yahya Ahmed, Naoufel Boutet, Kaelig Barillet, Paolo Peraza Muñoz, Clément Nogues
