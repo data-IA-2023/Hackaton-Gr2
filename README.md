@@ -67,7 +67,8 @@ Cependant il s'agit d'un projet étudiant, je suis ouvert aux critiques et aux c
 
 ## Licence
 
-Libre de droit I guess
+License DWTFYW :
+Do what the fuck you want
 
 ---
 
