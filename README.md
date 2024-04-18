@@ -5,7 +5,7 @@
 ## Table des matières
 
 - [Aperçu](#aperçu)
-- [Installation](#installation)
+- [Installation et conditions requises](#installation)
 - [Utilisation](#utilisation)
 - [Contribuer](#contribuer)
 - [Licence](#licence)
@@ -15,15 +15,24 @@
 
 ## Aperçu
 
-[Insérer ici une capture d'écran ou une démonstration visuelle de ton projet, si possible.]
+Le projet EmoBot est un projet étudiant dont les conditions étaient de réaliser en 4 jours seulement une application permettant de discuter avec un chatbot qui prendrait
+en compte les émotions, notre groupe à eu pour condition de devoir intéréagir avec le dit bot par fonction vocal et une obtenir une réponse également par audio.
 
-[Insérer ici une description détaillée de ton projet, son objectif, ses fonctionnalités principales, etc.]
+L'application est réalisée sur Streamlit, elle embarque 5 points importants :
+  - Une méthode de TTS (Text-to-speech)
+  - Une méthode de STT (Speech-to-text)
+  - Une méthode de ChatBot (Mistral)
+  - Une méthode d'enregistrement audio (PyAudio)
+  - Une méthode de prédiction des émotions dans la voix (Keras)
 
 ---
 
-## Installation
+## Installation et conditions requises
 
-[Insérer ici des instructions détaillées sur la manière d'installer ton projet, y compris les dépendances et les prérequis.]
+L'application fonctionne sous :
+  - Windows 10/11
+  - Linux debian based (Ubuntu, Kubutu, PopOs!....)
+  - Mac OS Ventura/Sonoma
 
 ---
 
