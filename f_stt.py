@@ -5,7 +5,7 @@ import json
 import io
 import os
 
-def model_tts(model_path):
+def model_stt(model_path):
     if not os.path.exists(model_path):
         print("Please download the French model.")
         return None

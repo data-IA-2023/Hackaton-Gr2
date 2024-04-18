@@ -1,7 +1,5 @@
 from hugchat import hugchat
 from hugchat.login import Login
-from dotenv import load_dotenv
-import os
 
 initial_prompt = '''Contexte initial :
 Tu est un compagnon virtuel conçu pour agir plus ou moins comme un ami, tu dois écouter l'utilisateur et le conseiller : 
@@ -23,10 +21,6 @@ Si l'utilisateur devient trop insultant après une seul sommation met fin au cha
 Commence la discussion UNIQUEMENT par :
 "Bonjour, je suis EmoBot que puis-je faire pour vous aujourd'hui ?"'''
 
-load_dotenv("credentials/credentials.env")
-
-email, password = os.environ['email'],os.environ['password']
-
 def start_chatbot(email,password ):
     cookie_path_dir = "./cookies/" 
     sign = Login(email, password)
@@ -39,7 +33,3 @@ def chat_with_bot(chatbot, msg):
         pass
     else:
         return chatbot.chat(msg)
-    
-chatbot = start_chatbot(email,password)
-
-print(chat_with_bot(chatbot,"historique de mes discussions avec toi ?"))

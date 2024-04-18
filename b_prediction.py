@@ -3,7 +3,6 @@ import numpy as np
 import librosa
 import keras
 import pickle
-from test import valeurs_plus_probables
 
 scaler = StandardScaler()
 model = keras.models.load_model("models/model.h5")
@@ -84,6 +83,17 @@ def get_features(datatuple):
     
     return result
 
+def valeurs_plus_probables(probas):
+    valeurs = []
+    pourcentages = []
+    for ligne in probas:
+        max_index = np.argmax(ligne)
+        valeur = ligne[max_index]
+        pourcentage = valeur * 100
+        valeurs.append(valeur)
+        pourcentages.append(pourcentage)
+    return valeurs, pourcentages
+
 def predict_emotion(audio_file):
     # Chargez le fichier audio
     data = librosa.load(audio_file, duration=2.5, offset=0.6)
@@ -111,3 +121,9 @@ def predict_emotion(audio_file):
     prob = valeurs_plus_probables(prediction)
   
     return predicted_emotion, prob[1]
+
+def max(data):
+    text_array, percent_array = data
+    max_index = np.argmax(percent_array)
+    max_text = text_array[max_index][0]
+    return max_text, percent_array[max_index]
