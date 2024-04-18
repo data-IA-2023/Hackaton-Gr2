@@ -1,0 +1,12 @@
+streamlit==1.33.0
+python-dotenv==1.0.1
+scikit-learn==1.4.2
+librosa==0.10.1
+keras==3.2.1
+tensorflow==2.16.1
+pydub==0.25.1
+setuptools==69.5.1
+PyAudio==0.2.14
+hugchat==0.4.2
+vosk==0.3.45
+hydralit==1.0.14

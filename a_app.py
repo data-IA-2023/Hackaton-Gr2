@@ -65,6 +65,7 @@ try:
         st.markdown("---")
         st.write(chatbot_discussion)
         text_to_speech(chatbot_discussion)
+        os.remove("output.wav")
 
 except:
     st.write("Erreur.")
