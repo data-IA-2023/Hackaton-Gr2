@@ -1,4 +1,5 @@
 from b_prediction import predict_emotion, max
+from c_tts import text_to_speech
 from d_record import audio
 from e_chatbot import chat_with_bot, initial_prompt
 from f_stt import speech_to_text, model_stt
@@ -20,6 +21,7 @@ path = "model_stt"
 
 st.set_page_config(page_title="EmoBot 🤖")
 st.markdown("<h1 style='text-align: center;'>Discute avec Emobot !</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='tex-align: center;'>Bonjour je suis EmoBot 🤖 ! Demande moi quelque chose !</h3>", unsafe_allow_html=True)
 st.markdown("---")
 
 # ====== Mise en cache du chatbot =====
@@ -53,11 +55,16 @@ try:
             audio()
             emotions = predict_emotion("output.wav")
             stt_output = speech_to_text("output.wav", stt_model)
-            chatbot_discussion = chat_with_bot(chatbot_log, initial_prompt) #+ max(emotions)[0] + stt_output)
-            st.sidebar.write("Emotion détéctée la plus probable")
-            st.sidebar.progress(int(max(emotions)[1]), f"{max(emotions)[0].capitalize()} : {max(emotions)[1]:.3f}%")
-            st.sidebar.write("Phrase entendue par Emobot !")
-            st.sidebar.text_area(f"{stt_output}")
-            st.write(chatbot_discussion)
+            chatbot_discussion = chat_with_bot(chatbot_log, initial_prompt + " " + f"({max(emotions)[0]})" + " " + f"{stt_output}")
+
+        st.sidebar.title("Emotion détéctée la plus probable")
+        st.sidebar.progress(int(max(emotions)[1]), f"{max(emotions)[0].capitalize()} : {max(emotions)[1]:.3f}%")
+        st.sidebar.markdown("---")
+        st.sidebar.title("Phrase entendue par Emobot !")
+        st.sidebar.write(f"{stt_output}")
+        st.markdown("---")
+        st.write(chatbot_discussion)
+        text_to_speech(chatbot_discussion)
+
 except:
-    st.write("ya un truc qui va pas")
+    st.write("Erreur.")

@@ -2,7 +2,7 @@ from hugchat import hugchat
 from hugchat.login import Login
 
 initial_prompt = '''Contexte initial :
-Tu est un compagnon virtuel conçu pour agir plus ou moins comme un ami, tu dois écouter l'utilisateur et le conseiller : 
+Tu est un compagnon virtuel (tu te prénome "EmoBot") conçu pour agir plus ou moins comme un ami, tu dois écouter l'utilisateur et le conseiller : 
 
 Détection d'émotion :
 Tu dois t'adataper à l'émotion de l'utilisateur en plus de sa demande, son émotion.
@@ -31,4 +31,4 @@ def chat_with_bot(chatbot, msg):
     if msg.lower() == '':
         pass
     else:
-        return chatbot.chat(msg)
+        return str(chatbot.chat(msg))
