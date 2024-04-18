@@ -22,8 +22,8 @@ def audio():
                         rate=RATE,
                         input=True,
                         output=True,
-                        input_device_index=3,
-                        output_device_index=2,
+                        input_device_index=2,
+                        output_device_index=3,
                         frames_per_buffer=CHUNK)
 
         print("Enregistrement en cours...")
@@ -48,8 +48,8 @@ def audio():
         wf.close()
         print("Enregistrement effectué avec succès!")
         return True
-    except:
-        print("Echec de l'enregistrement")
+    except Exception as e:
+        print(f"Echec de l'enregistrement:{e}")
         return False
 
 def audio_lecture():
@@ -80,3 +80,5 @@ def audio_lecture():
     except:
         print("Vous devez d'abord effectuer un enregistrement avant de le l'écouter")
     return
+
+audio()
