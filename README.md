@@ -58,6 +58,8 @@ __Linux / MacOS :__
 4. Pour que le STT (Speech to text) fonctionne convenablement il faut télécharger son modèle et le placer à la racine avec le nom ``model_stt``, vous pouvez trouver des modèles pré-entraînés dans plusieurs langues ici : https://alphacephei.com/vosk/models
 5. Lancez en tant qu'administrateur le fichier ``run.sh``
 
+![<Exemple>](https://media.discordapp.net/attachments/1223209671515439174/1230657115727597599/image.png?ex=66341dc0&is=6621a8c0&hm=a184c888635c3b0c54f1edc7ef77965d7111e5a0004fc0ff8caad7d5f1a600c8&=&format=webp&quality=lossless&width=809&height=302)
+
 ---
 
 ## Contribuer
