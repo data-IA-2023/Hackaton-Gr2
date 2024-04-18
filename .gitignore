@@ -16,6 +16,7 @@ pickle_save
 model_stt
 cookies
 output.wav
+credentials/credentials.env
 
 # Distribution / packaging
 .Python
