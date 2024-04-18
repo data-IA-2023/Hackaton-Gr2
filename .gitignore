@@ -13,6 +13,7 @@ ressource_audio
 test
 model_save
 pickle_save
+model_stt
 
 # Distribution / packaging
 .Python

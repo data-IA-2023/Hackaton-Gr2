@@ -1,12 +1,8 @@
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import StandardScaler
 import numpy as np
 import librosa
 import keras
-import pyaudio
-import wave
-import os
 import pickle
-import pandas as pd
 from test import valeurs_plus_probables
 
 scaler = StandardScaler()
@@ -113,10 +109,5 @@ def predict_emotion(audio_file):
 
     predicted_emotion = encoder.inverse_transform(prediction)
     prob = valeurs_plus_probables(prediction)
-
-    
+  
     return predicted_emotion, prob[1]
-
-audio_file_path = "output.wav"
-predicted_emotion = predict_emotion(audio_file_path)
-print("Predicted emotion:", predicted_emotion)
