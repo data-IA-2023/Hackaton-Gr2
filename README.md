@@ -47,14 +47,16 @@ __Windows :__
 1. Téléchargez l'archive en .zip
 2. Dézippez l'archive dans un dossier
 3. Pour faire fonctionner le chatbot vous devez posseder un compte huggingface : https://huggingface.co/join, il vous faudra ensuite créer un fichier ``"credentials.env"`` dans le répértoire "credentials" (lire le fichier ``"place_keys_here"``) pour plus d'informations.
-4. Lancez en tant qu'administrateur le fichier ``run.bat``
+4. Pour que le STT (Speech to text) fonctionne convenablement il faut télécharger son modèle et le placer à la racine avec le nom ``model_stt``, vous pouvez trouver des modèles pré-entraînés dans plusieurs langues ici : https://alphacephei.com/vosk/models
+5. Lancez en tant qu'administrateur le fichier ``run.bat``
 
 __Linux / MacOS :__
 
 1. Téléchargez l'archive en .zip
 2. Dézippez l'archive dans un dossier
 3. Pour faire fonctionner le chatbot vous devez posseder un compte huggingface : https://huggingface.co/join, il vous faudra ensuite créer un fichier ``"credentials.env"`` dans le répértoire "credentials" (lire le fichier ``"place_keys_here"``) pour plus d'informations.
-4. Lancez en tant qu'administrateur le fichier ``run.sh``
+4. Pour que le STT (Speech to text) fonctionne convenablement il faut télécharger son modèle et le placer à la racine avec le nom ``model_stt``, vous pouvez trouver des modèles pré-entraînés dans plusieurs langues ici : https://alphacephei.com/vosk/models
+5. Lancez en tant qu'administrateur le fichier ``run.sh``
 
 ---
 
