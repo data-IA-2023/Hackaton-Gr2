@@ -6,7 +6,7 @@ import pickle
 from test import valeurs_plus_probables
 
 scaler = StandardScaler()
-model = keras.models.load_model("model.h5")
+model = keras.models.load_model("models/model.h5")
 model.summary()
 
 def noise(data):
@@ -103,7 +103,7 @@ def predict_emotion(audio_file):
     prediction = model.predict(features)
     
     # Convertissez la prédiction en émotion
-    pkl_file = open('decoder.pkl', 'rb')
+    pkl_file = open('models/decoder.pkl', 'rb')
     encoder = pickle.load(pkl_file) 
     pkl_file.close()
 

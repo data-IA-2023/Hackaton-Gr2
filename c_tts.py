@@ -2,8 +2,9 @@ import requests
 from pydub import AudioSegment
 from pydub.playback import play
 from io import BytesIO
+import re
 
-def text_to_speech(text, lang="fr", speed="slow" ):
+def text_to_speech(text, lang="fr", speed="normal" ):
     url = "https://text-to-speech-api.p.rapidapi.com/text-to-speech"
     payload = {
         "text": text,
@@ -29,12 +30,15 @@ def text_to_speech(text, lang="fr", speed="slow" ):
     else:
         print("Failed to get audio:", response.text)
 
-# Example usage
-text = "Paolo mange tes morts"
-text_to_speech(text)
+def clean_emoji(text):
+    text_clean = re.sub(r'[^\w\s,]','', text)
+    return text_clean
 
+def split_text(text, max_length=200):
+    text_chunks = []
+    while text :
+        chunk = text[:max_length]
+        text = text[max_length:]
+        text_chunks.append(chunk)
 
-
-#install "sudo apt-get install ffmpeg " for linux 
-# install "brew install ffmpeg" for mac 
-# windows donload it from https://ffmpeg.org/download.html 
+    return text_chunks
