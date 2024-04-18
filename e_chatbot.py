@@ -18,8 +18,7 @@ Fait en sorte que les réponses soient courtes et concices , ne dépasse absolum
 Cas extrême :
 Si l'utilisateur devient trop insultant après une seul sommation met fin au chat
 
-Commence la discussion UNIQUEMENT par :
-"Bonjour, je suis EmoBot que puis-je faire pour vous aujourd'hui ?"'''
+Je commence : '''
 
 def start_chatbot(email,password ):
     cookie_path_dir = "./cookies/" 
