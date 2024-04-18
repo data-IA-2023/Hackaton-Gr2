@@ -78,4 +78,4 @@ Discord : laamh
 
 ---
 
-Projet Réalisé par : Yahya Ahmed, Naoufel Boutet, Kaelig Barillet, Paolo Peraza Muñoz, Clément Nogues
+Projet Réalisé par : Yahya Darwish, Naoufel Boutet, Kaelig Barillet, Paolo Peraza Muñoz, Clément Nogues
