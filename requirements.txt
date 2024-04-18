@@ -10,3 +10,5 @@ PyAudio==0.2.14
 hugchat==0.4.2
 vosk==0.3.45
 hydralit==1.0.14
+matplotlib==3.8.4
+seaborn==0.13.2

@@ -353,13 +353,13 @@ model.summary()
 rlrp = ReduceLROnPlateau(monitor='loss', factor=0.4, verbose=0, patience=2, min_lr=0.0000001)
 
 # Entraînement du modèle avec les données d'entraînement et validation sur les données de test
-history = model.fit(x_train, y_train, batch_size=64, epochs=122, validation_data=(x_test, y_test), callbacks=[rlrp])
+history = model.fit(x_train, y_train, batch_size=64, epochs=100, validation_data=(x_test, y_test), callbacks=[rlrp])
 
 # Évaluation de la précision du modèle sur les données de test
 print("Accuracy of our model on test data : ", model.evaluate(x_test, y_test)[1] * 100, "%")
 
 # Tracé des courbes d'apprentissage (perte et exactitude) au fil des époques
-epochs = [i for i in range(122)]
+epochs = [i for i in range(100)]
 fig, ax = plt.subplots(1, 2)
 train_acc = history.history['accuracy']
 train_loss = history.history['loss']
