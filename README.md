@@ -36,7 +36,7 @@ L'application fonctionne sous :
 
 Conditions requises :
   - Python 3.12
-  - Application web nécéssitant un navigateur
+  - Application web nécessitant un navigateur
 
 ---
 
