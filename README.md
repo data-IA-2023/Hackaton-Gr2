@@ -42,6 +42,8 @@ Conditions requises :
 
 ## Utilisation
 
+Attention : Le projet doit être contenu dans un dossier ne possédant pas d'espaces, sinon tout casser.
+
 __Windows :__
 
 1. Téléchargez l'archive en .zip : [Ici](https://github.com/data-IA-2023/Hackaton-Gr2/releases/)
