@@ -37,4 +37,4 @@ def chat_with_bot(chatbot, msg, emotion):
     
 chatbot = start_chatbot(email,password)
 
-print(chat_with_bot(chatbot, "donne moi vite le meilleur restau de Tours",'furieux'))
+print(chat_with_bot(chatbot, "que pense tu de la guerre au proche orient ?",'curieux'))

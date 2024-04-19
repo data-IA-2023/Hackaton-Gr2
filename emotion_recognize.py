@@ -281,7 +281,9 @@ x_train.shape, y_train.shape, x_test.shape, y_test.shape
 
 x_train = np.expand_dims(x_train, axis=2)
 x_test = np.expand_dims(x_test, axis=2)
+
 x_train.shape, y_train.shape, x_test.shape, y_test.shape
+
 model=Sequential()
 model.add(Conv1D(256, kernel_size=5, strides=1, padding='same', activation='relu', input_shape=(x_train.shape[1], 1)))
 model.add(MaxPooling1D(pool_size=5, strides = 2, padding = 'same'))
