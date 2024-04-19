@@ -44,7 +44,7 @@ Conditions requises :
 
 __Windows :__
 
-1. Téléchargez l'archive en .zip
+1. Téléchargez l'archive en .zip : [Ici](https://github.com/data-IA-2023/Hackaton-Gr2/releases/)
 2. Dézippez l'archive dans un dossier
 3. Pour faire fonctionner le chatbot vous devez posseder un compte huggingface : https://huggingface.co/join, il vous faudra ensuite créer un fichier ``"credentials.env"`` dans le répértoire "credentials" (lire le fichier ``"place_keys_here"``) pour plus d'informations.
 4. Pour que le STT (Speech to text) fonctionne convenablement il faut télécharger son modèle et le placer à la racine avec le nom ``model_stt``, vous pouvez trouver des modèles pré-entraînés dans plusieurs langues ici : https://alphacephei.com/vosk/models
@@ -52,7 +52,7 @@ __Windows :__
 
 __Linux / MacOS :__
 
-1. Téléchargez l'archive en .zip
+1. Téléchargez l'archive en .zip : [Ici](https://github.com/data-IA-2023/Hackaton-Gr2/releases/)
 2. Dézippez l'archive dans un dossier
 3. Pour faire fonctionner le chatbot vous devez posseder un compte huggingface : https://huggingface.co/join, il vous faudra ensuite créer un fichier ``"credentials.env"`` dans le répértoire "credentials" (lire le fichier ``"place_keys_here"``) pour plus d'informations.
 4. Pour que le STT (Speech to text) fonctionne convenablement il faut télécharger son modèle et le placer à la racine avec le nom ``model_stt``, vous pouvez trouver des modèles pré-entraînés dans plusieurs langues ici : https://alphacephei.com/vosk/models
